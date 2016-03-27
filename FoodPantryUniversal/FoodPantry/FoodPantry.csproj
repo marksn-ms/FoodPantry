@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="ColorConverter.cs" />
     <Compile Include="FoodPantrySheet.cs" />
+    <Compile Include="FoodPantrySheetSummary.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -112,6 +113,8 @@
     <None Include="FoodPantry_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Groceries.png" />
+    <Content Include="Assets\Groceries2.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+//using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,37 +28,42 @@ namespace FoodPantry
         public MainPage()
         {
             this.InitializeComponent();
-            ViewModel = CreateFoodPantrySheetList();
+            this.ViewModel = CreateFoodPantrySheetList();
+            this.ViewModelSummary = new FoodPantrySheetSummary(ViewModel);
         }
 
-        public ObservableCollection<FoodPantrySheet> ViewModel { get; set; }
+        public TrulyObservableCollection<FoodPantrySheet> ViewModel { get; set; }
+        public FoodPantrySheetSummary ViewModelSummary { get; set; }
 
-        private ObservableCollection<FoodPantrySheet> CreateFoodPantrySheetList()
+        private TrulyObservableCollection<FoodPantrySheet> CreateFoodPantrySheetList()
         {
-            var theSheets = new ObservableCollection<FoodPantrySheet>();
-            for (int i = 0; i < 10; i++)
-            {
-                theSheets.Add(GetNewSheet());
-            }
+            var theSheets = new TrulyObservableCollection<FoodPantrySheet>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    theSheets.Add(GetNewSheet());
+            //}
             return theSheets;
         }
 
-        static Random rnd = new Random();
+        //static Random rnd = new Random();
 
-        private static FoodPantrySheet GetNewSheet()
-        {
-            FoodPantrySheet fps = new FoodPantrySheet();
-            fps.Families = rnd.Next(10);
-            fps.Age0to18 = rnd.Next(10);
-            fps.Age19to64 = rnd.Next(10);
-            fps.Age65AndUp = rnd.Next(10);
-            fps.FamilySize = (fps.Age0to18 + fps.Age19to64 + fps.Age65AndUp) + (rnd.NextDouble() > 0.7 ? 1 : 0);
-            return fps;
-        }
+        //private static FoodPantrySheet GetNewSheet()
+        //{
+        //    FoodPantrySheet fps = new FoodPantrySheet();
+        //    fps.Families = rnd.Next(10);
+        //    fps.Age0to18 = rnd.Next(10);
+        //    fps.Age19to64 = rnd.Next(10);
+        //    fps.Age65AndUp = rnd.Next(10);
+        //    fps.FamilySize = (fps.Age0to18 + fps.Age19to64 + fps.Age65AndUp) + (rnd.NextDouble() > 0.7 ? 1 : 0);
+        //    fps.IsFoodStamps = (rnd.NextDouble() > .7);
+        //    fps.IsTempAssistance = (rnd.NextDouble() > .7);
+        //    return fps;
+        //}
 
         private void AddSheet_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.Add(GetNewSheet());
+            var newSheet = new FoodPantrySheet();
+            ViewModel.Add(newSheet);
         }
 
         private void RemoveSheet_Tapped(object sender, TappedRoutedEventArgs e)
@@ -64,6 +71,15 @@ namespace FoodPantry
             var selectedItem = e.OriginalSource as FrameworkElement;
             var selectedSheet = selectedItem.DataContext as FoodPantrySheet;
             ViewModel.Remove(selectedSheet);
+        }
+
+        private void listSheets_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListView selectionChanged = sender as ListView;
+            if (selectionChanged.SelectedItems.Count == 0 && selectionChanged.Items.Count > 0)
+            {
+                selectionChanged.SelectedIndex = 0;
+            }
         }
     }
 }
