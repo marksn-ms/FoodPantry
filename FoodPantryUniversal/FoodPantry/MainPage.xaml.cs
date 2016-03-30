@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-//using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -55,8 +41,8 @@ namespace FoodPantry
         //    fps.Age19to64 = rnd.Next(10);
         //    fps.Age65AndUp = rnd.Next(10);
         //    fps.FamilySize = (fps.Age0to18 + fps.Age19to64 + fps.Age65AndUp) + (rnd.NextDouble() > 0.7 ? 1 : 0);
-        //    fps.IsFoodStamps = (rnd.NextDouble() > .7);
-        //    fps.IsTempAssistance = (rnd.NextDouble() > .7);
+        //    fps.FoodStamps = (rnd.NextDouble() > .7);
+        //    fps.TempAssistance = (rnd.NextDouble() > .7);
         //    return fps;
         //}
 
@@ -78,7 +64,10 @@ namespace FoodPantry
             ListView selectionChanged = sender as ListView;
             if (selectionChanged.SelectedItems.Count == 0 && selectionChanged.Items.Count > 0)
             {
-                selectionChanged.SelectedIndex = 0;
+                if (e.RemovedItems.Count > 0 && selectionChanged.Items.IndexOf(e.RemovedItems[0]) >= 0)
+                    selectionChanged.SelectedIndex = selectionChanged.Items.IndexOf(e.RemovedItems[0]);
+                else
+                    selectionChanged.SelectedIndex = 0;
             }
         }
     }

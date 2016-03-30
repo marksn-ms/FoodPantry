@@ -73,10 +73,10 @@ namespace FoodPantry
         public int Age65AndUp { get { return _Age65AndUp; } set { _Age65AndUp = value; OnPropertyChanged(nameof(Age65AndUp), nameof(HasError)); } }
         private int _Age65AndUp;
 
-        public bool IsFoodStamps { get { return _IsFoodStamps; } set { _IsFoodStamps = value; OnPropertyChanged(nameof(IsFoodStamps)); } }
-        private bool _IsFoodStamps;
-        public bool IsTempAssistance { get { return _IsTempAssistance; } set { _IsTempAssistance = value; OnPropertyChanged(nameof(IsTempAssistance)); } }
-        private bool _IsTempAssistance;
+        public int FoodStamps { get { return _FoodStamps; } set { _FoodStamps = value; OnPropertyChanged(nameof(FoodStamps)); } }
+        private int _FoodStamps;
+        public int TempAssistance { get { return _TempAssistance; } set { _TempAssistance = value; OnPropertyChanged(nameof(TempAssistance)); } }
+        private int _TempAssistance;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

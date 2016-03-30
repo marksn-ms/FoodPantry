@@ -5,7 +5,8 @@
     xmlns:local="using:FoodPantry"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
+    mc:Ignorable="d" Width="844" MinWidth="844">
 
     <Page.Resources>
         <local:ColorConverter x:Key="BoolToColorConverter" />
@@ -13,9 +14,18 @@
     </Page.Resources>
 
     <StackPanel>
-        <StackPanel Orientation="Horizontal" Background="White" Margin="0">
-            <Image Source="Assets/Groceries2.png"/>
-            <TextBlock Text="Food Pantry Sheet Manager" VerticalAlignment="Center" FontSize="32"/>
+        <Grid Width="844" Height="120" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="Assets/Groceries2.png" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="1" TextWrapping="WrapWholeWords" Width="190" Padding="10" Text="Food Pantry Helper" VerticalAlignment="Center" FontSize="32" HorizontalAlignment="Stretch"/>
+            <UI:AdControl Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ApplicationId="5f598641-7cea-4e90-8979-22706412afe1" 
+                      AdUnitId="11608829" Height="80" Width="480"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Background="White" Margin="0" HorizontalAlignment="Stretch">
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Background="White" Margin="0,0,0,0">
@@ -60,16 +70,16 @@
                     <TextBox x:Name="text65andAbove" Grid.Column="1" Grid.Row="6" Height="26" Width="Auto" Padding="0,4,0,0" IsReadOnly="True" HorizontalContentAlignment="Right" Text="{x:Bind ViewModelSummary.Age65AndUp, Mode=OneWay}"/>
 
                     <TextBlock Text="With Food Stamps:" Padding="6" Height="27" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center"/>
-                    <TextBox x:Name="textFoodStamps" Grid.Column="1" Grid.Row="7" Height="26" Width="Auto" Padding="0,4,0,0" IsReadOnly="True" HorizontalContentAlignment="Right" Text="{x:Bind ViewModelSummary.IsFoodStamps, Mode=OneWay}"/>
+                    <TextBox x:Name="textFoodStamps" Grid.Column="1" Grid.Row="7" Height="26" Width="Auto" Padding="0,4,0,0" IsReadOnly="True" HorizontalContentAlignment="Right" Text="{x:Bind ViewModelSummary.FoodStamps, Mode=OneWay}"/>
 
                     <TextBlock Text="With Temp Assist:" Padding="6" Height="27" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center"/>
-                    <TextBox x:Name="textTempAssist" Grid.Column="1" Grid.Row="8" Height="26" Width="Auto" Padding="0,4,0,0" IsReadOnly="True" HorizontalContentAlignment="Right" Text="{x:Bind ViewModelSummary.IsTempAssistance, Mode=OneWay}"/>
+                    <TextBox x:Name="textTempAssist" Grid.Column="1" Grid.Row="8" Height="26" Width="Auto" Padding="0,4,0,0" IsReadOnly="True" HorizontalContentAlignment="Right" Text="{x:Bind ViewModelSummary.TempAssistance, Mode=OneWay}"/>
                 </Grid>
             </Border>
 
             <!-- Sheet List View -->
 
-            <Border Margin="6" BorderBrush="Black" BorderThickness="1" Background="#FFFFFFFF" CornerRadius="8">
+            <Border Margin="6" BorderBrush="Black" BorderThickness="1" Background="#FFFFFFFF" CornerRadius="8" MinWidth="300">
                 <Grid Margin="6,6,6,6" Background="#FFFFFFFF" BorderThickness="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -136,10 +146,10 @@
                                 <TextBox x:Name="text65andAbove" Grid.Column="1" Grid.Row="6" Height="26" Width="Auto" Padding="0,4,0,0" Text="{Binding Age65AndUp, Mode=TwoWay}"/>
 
                                 <TextBlock Text="With Food Stamps:" Padding="6" Height="27" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center"/>
-                                <CheckBox x:Name="textFoodStamps" Grid.Column="1" Grid.Row="7" Height="26" Width="Auto" Padding="0,4,0,0" IsChecked="{Binding IsFoodStamps, Mode=TwoWay}"/>
+                                <TextBox x:Name="textFoodStamps" Grid.Column="1" Grid.Row="7" Height="26" Width="Auto" Padding="0,4,0,0" Text="{Binding FoodStamps, Mode=TwoWay}"/>
 
                                 <TextBlock Text="With Temp Assist:" Padding="6" Height="27" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center"/>
-                                <CheckBox x:Name="textTempAssist" Grid.Column="1" Grid.Row="8" Height="26" Width="Auto" Padding="0,4,0,0" IsChecked="{Binding IsTempAssistance, Mode=TwoWay}"/>
+                                <TextBox x:Name="textTempAssist" Grid.Column="1" Grid.Row="8" Height="26" Width="Auto" Padding="0,4,0,0" Text="{Binding TempAssistance, Mode=TwoWay}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

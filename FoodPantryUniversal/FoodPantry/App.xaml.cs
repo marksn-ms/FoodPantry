@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.ApplicationModel.Store;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FoodPantry
@@ -103,6 +94,71 @@ namespace FoodPantry
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private LicenseInformation licenseInformation;
+
+        private void initializeLicense()
+        {
+            // Initialize the license info for use in the app that is uploaded to the Store.
+            // uncomment for release
+            //   licenseInformation = CurrentApp.LicenseInformation;
+
+            // Initialize the license info for testing.
+            // comment the next line for release
+            licenseInformation = CurrentAppSimulator.LicenseInformation;
+
+            licenseInformation.LicenseChanged += LicenseInformation_LicenseChanged;
+        }
+
+        private void LicenseInformation_LicenseChanged()
+        {
+            ReloadLicense(); // update the license information
+        }
+
+        private void ReloadLicense()
+        {
+            if (licenseInformation.IsActive)
+            {
+                if (licenseInformation.IsTrial)
+                {
+                    // Show the features that are available during trial only.
+                }
+                else
+                {
+                    // Show the features that are available only with a full license.
+                }
+            }
+            else
+            {
+                // A license is inactive only when there' s an error.
+            }
+        }
+
+        private void DisplayTrialVersionExpirationTime()
+        {
+            if (licenseInformation.IsActive)
+            {
+                if (licenseInformation.IsTrial)
+                {
+                    var longDateFormat = new Windows.Globalization.DateTimeFormatting.DateTimeFormatter("longdate");
+
+                    // Display the expiration date using the DateTimeFormatter. 
+                    // For example, longDateFormat.Format(licenseInformation.ExpirationDate)
+
+                    var daysRemaining = (licenseInformation.ExpirationDate - DateTime.Now).Days;
+
+                    // Let the user know the number of days remaining before the feature expires
+                }
+                else
+                {
+                    // ...
+                }
+            }
+            else
+            {
+                // ...
+            }
         }
     }
 }
